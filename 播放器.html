@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    li {
+      list-style: none;
+    }
+
+    #app {
+      width: 50vw;
+      height: 60vh;
+      border: 1px solid rgb(175, 62, 197);
+      margin: auto;
+      position: absolute;
+      top: 25%;
+      left: 25%;
+      z-index: 100;
+    }
+
+    .top {
+      height: 10%;
+      display: flex;
+      background-color: rgb(187, 122, 248);
+      position: relative;
+    }
+
+    .title {
+      margin-left: 5px;
+      padding: 0 10px;
+      font-size: 20px;
+      line-height: 20px;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .search {
+      height: 80%;
+      width: 40%;
+      margin: auto 0;
+      border-radius: 15px;
+      border: 1px solid rgb(187, 122, 248);
+      opacity: 0.8;
+      position: absolute;
+      right: 10px;
+      top: 10%;
+      outline: none;
+      font-size: 18px;
+      padding: 8px;
+    }
+
+    .play {
+      width: 100%;
+      height: 80%;
+      background-color: rgba(238, 201, 201, 0.788);
+      display: flex;
+      overflow: hidden;
+      background: -webkit-linear-gradient(left,
+          rgba(238, 201, 201, 0.788),
+          rgba(189, 138, 138, 0.788));
+    }
+    .play-left::-webkit-scrollbar{display: none;}
+    .play-right::-webkit-scrollbar{display: none;}
+    .play-left {
+      height: 100%;
+      width: 25%;
+      overflow: auto;
+      border-right: 1px solid rgb(139, 115, 115);
+      border-image: -webkit-linear-gradient(rgb(51, 41, 41),
+          rgba(238, 201, 201, 0.788)) 20 20;
+    }
+
+    .play-mid {
+      height: 100%;
+      width: 45%;
+    }
+
+    .play-right {
+      height: 100%;
+      width: 30%;
+      overflow: auto;
+      border-left: 1px solid rgb(139, 115, 115);
+      border-image: -webkit-linear-gradient(rgb(51, 41, 41),
+          rgba(219, 143, 143, 0.788)) 0 100;
+    }
+
+    .album {
+      width: 100%;
+      height: 10%;
+    }
+
+    .audio-play {
+      width: 100%;
+      height: 100%;
+      background-color: rgb(238, 217, 217);
+      outline: none;
+      padding: 5px;
+    }
+
+    .song {
+      width: 100%;
+      border-bottom: 1px solid rgb(133, 82, 82);
+      font-size: 15px;
+      display: flex;
+      height: auto;
+      padding: 5px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .play-left li:hover {
+      background-color: rgb(158, 203, 255);
+    }
+
+    .song:nth-child(2n) {
+      background-color: rgb(182, 148, 148);
+    }
+
+    .song:nth-child(2n + 1) {
+      background-color: rgb(241, 192, 192);
+    }
+
+    /* .song-img-place{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        } */
+    .song-img {
+      width: 35%;
+      height: 60px;
+    }
+
+    .song-detail {
+      display: flex;
+      justify-content: center;
+      /* align-items: center; */
+      flex-direction: column;
+      padding: 5px;
+      overflow: hidden;
+      flex: 1;
+    }
+
+    .song-detail span {
+      display: block;
+      /* text-overflow: ellipsis; */
+      overflow: visible;
+      white-space: nowrap;
+    }
+
+    .singer {
+      display: inline-block;
+    }
+
+    /* .author{
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+        } */
+    .right-title {
+      padding: 5px;
+    }
+
+    .hot-comment {
+      display: flex;
+      height: auto;
+      border-bottom: 1px solid rgb(190, 133, 133);
+      overflow: auto;
+    }
+
+    .comment-place {
+      margin-left: 5px;
+      flex: 0.7;
+    }
+
+    .comment-title {
+      font-size: 15px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .comment-article {
+      font-size: 13px;
+      margin-top: 5px;
+      margin-bottom: 10px;
+    }
+
+    .comment-img {
+      width: 100%;
+      height: 100%;
+      /* display: block; */
+      border-radius: 50%;
+      /* padding: 0 5px; */
+    }
+
+    .comment-img-place {
+      width: 25%;
+      height: 25%;
+      margin: 10px 5px;
+      flex: 0.3;
+    }
+
+    .video-part {
+      z-index: 99;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+     text-align: center;
+     
+
+      /* text-align: center; */
+
+    }
+
+    .activeMv {
+      width: 100%;
+      opacity: 0.8;
+      background-color: rgb(214, 188, 188);
+      height: 100%;
+      z-index: 98;
+    }
+
+    .all {
+      position: relative;
+      width: 100%;
+      height: 100%;
+
+
+    }
+
+    button {
+      background-color: rgb(172, 63, 63);
+      outline: none;
+      border: 1px solid rgb(131, 85, 85);
+      border-radius: 5px;
+      padding: 2px;
+      color: #fff;
+    }
+
+    html,
+    body {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .play-mid {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .play-mid-imgRotate {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+       animation-name: imgRotate;
+       animation-iteration-count: infinite;
+       animation-play-state: running;
+       animation-timing-function: linear;
+       animation-duration: 20s;
+      /* animation-play-state: paused; */
+
+    }
+
+    .play-mid-img {
+      width: 300px;
+      height: 300px;
+      border: 1px solid rgb(66, 139, 51);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(131, 71, 71);
+    }
+    .playing{
+      animation-play-state: paused;
+    }
+    @keyframes imgRotate {
+      from {
+        transform: rotateZ(0deg);
+      }
+
+      to {
+        transform: rotateZ(360deg);
+      }
+
+    }
+    .video-place{
+      width: 50%;
+      height: 40%;
+      display: block;
+      margin: 20vh auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="all" :class="{activeMv:isShowMv}">
+    <div class="video-part " v-show="isShowMv" @click.stop="closeMv">
+      <video :src="mvUrl" autoplay controls class="video-place"></video>
+    </div>
+    <div id="app" v-show="!isShowMv">
+
+      <div class="top">
+        <div class="title"><span>播放器</span></div>
+        <input type="text" class="search" v-model="search" @keyup.enter="searchMusic" />
+      </div>
+      <div class="play">
+        <div class="play-left">
+          <ul>
+            <li class="song" v-for=" (item,index) in searchResultArr" @click="playMusic(item.id,item.duration)">
+              <img :src="item.artists[0].img1v1Url" alt="" class="song-img" />
+
+              <div class="song-detail">
+                <span class="author">{{item.name}} </span>
+                <span>歌手：<div class="singer" class="singer" v-for="author in  item.artists">
+                    {{author.name}}<b v-show="item.artists.length>1">.</b>
+                  </div></span>
+                <span>专辑：{{item.album.name}}</span>
+                <span>/{{duration}}
+                  <button v-show="item.mvid!=0" style="-webkit-user-select: none;" @click.stop="playMv(item.mvid)">
+                    Mv
+                  </button></span>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="play-mid" >
+          <div class="play-mid-img" v-show="albumImg" >
+            <img :src="albumImg" alt="" class="play-mid-imgRotate" :class="{playing:isPlaying}">
+          </div>
+        </div>
+        <div class="play-right">
+          <div class="right-title">{{hotTitle}}</div>
+          <div class="hot-comment" v-for=" item in commentList">
+            <div class="comment-img-place">
+              <img :src="item.user.avatarUrl" alt="" class="comment-img" />
+            </div>
+            <div class="comment-place">
+              <p class="comment-title">
+                <strong>{{item.user.nickname}}</strong>
+              </p>
+              <p class="comment-article">{{item.content}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="album">
+        <audio  :src="playSong"  @play="songPlay" @pause="songPaused" controls class="audio-play" loop autoplay></audio>
+
+      </div>
+
+    </div>
+  </div>
+</body>
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<!-- 官网提供的 axios 在线地址 -->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="./main.js"></script>
+
+</html>
